@@ -128,7 +128,7 @@ Use the default admin account to explore all features:
 
 ## Contact
 For any queries or support, please contact:  
-Yashwanth GR - [yashwanthgr003@gmail.com]
+Yashwanth GR - yashwanthgr003@gmail.com
 
 ---
 
