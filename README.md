@@ -1,6 +1,8 @@
 # Enterprise Management System 
 ---
+
 <img width="1920" height="1128" alt="Home" src="https://github.com/user-attachments/assets/008c23b7-3806-4973-9a2a-bf152f1af764" />
+
 ---
 
 ## Project Overview
@@ -59,7 +61,6 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 | **Notifications**   | react-hot-toast                           |
 | **Testing**         | Jest, React Testing Library               |
 
-
 ---
 ## Screenshots
 
@@ -74,25 +75,25 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 
 ---
 
-| **Reports (Graphs & Pie Charts)**  |
+| **Reports (Graphs & Pie Charts)**| |
 |----------------------------------|-|
 |<img width="1920" height="1128" alt="Piechart Report" src="https://github.com/user-attachments/assets/111b0295-4b64-41ff-8d96-464ae1147863" />|<img width="1920" height="1128" alt="Graphs" src="https://github.com/user-attachments/assets/23b1b1cd-8c4b-4132-be5c-418e835c662e" />|
 
+---
+|**Users Overview**|**Notifications**|
+|------------------|-----------------|
+|<img width="1920" height="1128" alt="Users" src="https://github.com/user-attachments/assets/c6ff21eb-3dfc-4938-8274-09b0f0678a7e" />|<img width="1920" height="1128" alt="Theam - Notifications" src="https://github.com/user-attachments/assets/1dfa4517-9656-4497-b1ef-21224420b9c5" />|
 
-### Users Overview  
-![Users Overview](URL_TO_USERS_OVERVIEW_IMAGE)
+---
+|**Manager Dashboard**| **Manager: My-Employees View**|
+|---------------------|-------------------------------|
+|<img width="1920" height="1128" alt="Manager" src="https://github.com/user-attachments/assets/99341b67-892c-41f1-af92-3bf6cb4febac" />|<img width="1920" height="1128" alt="My - Employees" src="https://github.com/user-attachments/assets/a3bdac5e-3e78-4c60-a652-9ad43b326645" />|
 
-### Notifications  
-![Notifications](URL_TO_NOTIFICATIONS_IMAGE)
+---
+|**Employee Dashboard**|
+|----------------------|
+|<img width="1920" height="1128" alt="Employee" src="https://github.com/user-attachments/assets/79755884-c38f-4ccd-b2c7-38af9fba69dc" />|
 
-### Manager Dashboard  
-![Manager Dashboard](URL_TO_MANAGER_DASHBOARD_IMAGE)
-
-### Manager: My Employees View  
-![Manager My Employees](URL_TO_MANAGER_MY_EMPLOYEES_IMAGE)
-
-### Employee Dashboard  
-![Employee Dashboard](URL_TO_EMPLOYEE_DASHBOARD_IMAGE)
 
 ---
 ## Architecture Overview
@@ -112,22 +113,20 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 
 ## Demo & Credentials
 My App
-Try the live demo here: [Enterprise Work Manager Live](https://enterprise-management-system1.netlify.app/)
+Try the live demo here: [Enterprise Management System](https://enterprise-management-system1.netlify.app/)
+Deployed in netlify.
 
 Use the default admin account to explore all features:  
-
-- **Email:** admin@example.com  
-- **Password:** admin123
+- **Email:** -> admin@example.com  
+- **Password:** -> admin123
 
 ---
 ## Future Enhancements
-
 - Backend
 
 ---
 
 ## Contact
-
 For any queries or support, please contact:  
 Yashwanth GR - [yashwanthgr003@gmail.com]
 
