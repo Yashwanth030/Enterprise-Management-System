@@ -104,7 +104,7 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 
 ---
 ## Tutorial Video
-![Watch the tutorial video](<img width="2732" height="1890" alt="Video" src="https://github.com/user-attachments/assets/0cb9080d-474d-4538-a065-73ed581c14e2" />)(https://drive.google.com/file/d/1KbyQH4UJb2RXtNncakmTV-uR2EDmSgf2/view?usp=drive_link)
+[![Watch the tutorial video](https://github.com/user-attachments/assets/0cb9080d-474d-4538-a065-73ed581c14e2)](https://drive.google.com/file/d/1KbyQH4UJb2RXtNncakmTV-uR2EDmSgf2/view?usp=drive_link)
 
 ---
 
