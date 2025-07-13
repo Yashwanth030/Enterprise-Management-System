@@ -1,4 +1,7 @@
-# Enterprise Work Manager
+# Enterprise Management System 
+---
+<img width="1920" height="1128" alt="Home" src="https://github.com/user-attachments/assets/008c23b7-3806-4973-9a2a-bf152f1af764" />
+---
 
 ## Project Overview
 
