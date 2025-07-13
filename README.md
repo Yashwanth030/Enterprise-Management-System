@@ -1,4 +1,4 @@
-<img width="1719" height="1082" alt="Admin-Project" src="https://github.com/user-attachments/assets/099f4207-7c61-4e2e-8c46-0ac6b520b2ed" /><img width="1366" height="492" alt="Home" src="https://github.com/user-attachments/assets/fde9384d-7cf3-4f5b-9a39-172d6f941f0d" />
+<img width="1366" height="492" alt="Home" src="https://github.com/user-attachments/assets/fde9384d-7cf3-4f5b-9a39-172d6f941f0d" />
 
 ---
 
