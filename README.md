@@ -105,7 +105,7 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 - Real-time UI feedback via notifications and updated charts.  
 
 ---
-## Demo Video
+## Tutorial Video
 
 [![Watch the demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://youtu.be/YOUTUBE_VIDEO_ID)
 
