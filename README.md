@@ -20,14 +20,20 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 ## Features by Role
 
 ### Admin Features
-- Create/manage projects, managers, and employees.  
-- Assign projects to managers and employees under managers.  
+- Create and assign projects to managers and employees under managers.  
 - View all users and monitor project progress.  
 - Access notifications and system messages.  
 - Visualize data via pie charts and graphs:  
   - Task statuses (Done, In Progress, To Do)  
   - Tasks per project and per manager  
 - Track project completion with progress bars.
+---
+| **Admin: Create Project** |**Admin see each Project**|
+|---------------------------|--------------------------|
+|<img width="1920" height="1128" alt="Create- Project" src="https://github.com/user-attachments/assets/e500d6ad-8059-4e1f-805d-7699681ae492" />|<img width="1719" height="1082" alt="Admin-Project" src="https://github.com/user-attachments/assets/5fc3a822-e37b-47d9-85d1-7fdc7fe9ffda" />|
+
+---
+ 
 
 ### Manager Features
 - View assigned projects.  
@@ -59,17 +65,7 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 | **Testing**         | Jest, React Testing Library               |
 
 ---
-## Screenshots
-
-| **Login Page**  | **Settings** |
-|-------------|--------------|
-|<img width="1920" height="1128" alt="Login" src="https://github.com/user-attachments/assets/76f968c6-69fb-486c-a95c-fb5040a9fbab" /> | <img width="1920" height="1128" alt="Settings" src="https://github.com/user-attachments/assets/98cc7616-760d-4c8a-ba13-8f4d5a4fd9ad" />|
- 
- ---
-| **Admin Dashboard** | **Admin: Create Project** |
-|---------------------|---------------------------|
-|<img width="1920" height="1128" alt="Admin -dashboard" src="https://github.com/user-attachments/assets/94497297-0490-4d3e-bd5c-4dd874de271b" />|<img width="1920" height="1128" alt="Create- Project" src="https://github.com/user-attachments/assets/e500d6ad-8059-4e1f-805d-7699681ae492" />|
-
+## Screenshots 
 ---
 
 | **Reports (Graphs & Pie Charts)**| |
@@ -87,9 +83,9 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 |<img width="1920" height="1128" alt="Manager" src="https://github.com/user-attachments/assets/99341b67-892c-41f1-af92-3bf6cb4febac" />|<img width="1920" height="1128" alt="My - Employees" src="https://github.com/user-attachments/assets/a3bdac5e-3e78-4c60-a652-9ad43b326645" />|
 
 ---
-|**Employee Dashboard**|**Admin see each Project**|
+|**Employee Dashboard**|
 |----------------------|--------------------------|
-|<img width="1920" height="1128" alt="Employee" src="https://github.com/user-attachments/assets/79755884-c38f-4ccd-b2c7-38af9fba69dc" />|<img width="1719" height="1082" alt="Admin-Project" src="https://github.com/user-attachments/assets/5fc3a822-e37b-47d9-85d1-7fdc7fe9ffda" />|
+|<img width="1920" height="1128" alt="Employee" src="https://github.com/user-attachments/assets/79755884-c38f-4ccd-b2c7-38af9fba69dc" />|
 
 
 
