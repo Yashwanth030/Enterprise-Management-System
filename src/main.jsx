@@ -7,10 +7,10 @@ import { store , persistor } from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { PersistGate } from 'redux-persist/integration/react';
-
+import { initializeAdmin } from "./utils/initAdmin";
 import './index.css';
 import './App.css'; // Optional: for logo spin or extra styles
-
+initializeAdmin();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
