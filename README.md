@@ -60,8 +60,9 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 ---
 ## Screenshots
 
-| ### Login Page  | ### Settings |
-|<img width="1920" height="1128" alt="Login" src="https://github.com/user-attachments/assets/76f968c6-69fb-486c-a95c-fb5040a9fbab" />|<img width="1920" height="1128" alt="Settings" src="https://github.com/user-attachments/assets/98cc7616-760d-4c8a-ba13-8f4d5a4fd9ad" />|
+| **Login Page**  | **Settings** |
+|-------------|--------------|
+|<img width="1920" height="1128" alt="Login" src="https://github.com/user-attachments/assets/76f968c6-69fb-486c-a95c-fb5040a9fbab" /> | <img width="1920" height="1128" alt="Settings" src="https://github.com/user-attachments/assets/98cc7616-760d-4c8a-ba13-8f4d5a4fd9ad" />|
 
 
 ### Admin Dashboard  
