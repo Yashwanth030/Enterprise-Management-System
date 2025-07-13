@@ -1,4 +1,4 @@
-<img width="1366" height="492" alt="Home" src="https://github.com/user-attachments/assets/fde9384d-7cf3-4f5b-9a39-172d6f941f0d" />
+<img width="1719" height="1082" alt="Admin-Project" src="https://github.com/user-attachments/assets/099f4207-7c61-4e2e-8c46-0ac6b520b2ed" /><img width="1366" height="492" alt="Home" src="https://github.com/user-attachments/assets/fde9384d-7cf3-4f5b-9a39-172d6f941f0d" />
 
 ---
 
@@ -87,9 +87,10 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 |<img width="1920" height="1128" alt="Manager" src="https://github.com/user-attachments/assets/99341b67-892c-41f1-af92-3bf6cb4febac" />|<img width="1920" height="1128" alt="My - Employees" src="https://github.com/user-attachments/assets/a3bdac5e-3e78-4c60-a652-9ad43b326645" />|
 
 ---
-|**Employee Dashboard**|
-|----------------------|
-|<img width="1920" height="1128" alt="Employee" src="https://github.com/user-attachments/assets/79755884-c38f-4ccd-b2c7-38af9fba69dc" />|
+|**Employee Dashboard**|**Admin see each Project**|
+|----------------------|--------------------------|
+|<img width="1920" height="1128" alt="Employee" src="https://github.com/user-attachments/assets/79755884-c38f-4ccd-b2c7-38af9fba69dc" />|<img width="1719" height="1082" alt="Admin-Project" src="https://github.com/user-attachments/assets/5fc3a822-e37b-47d9-85d1-7fdc7fe9ffda" />|
+
 
 
 ---
