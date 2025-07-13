@@ -58,32 +58,11 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 
 
 ---
-
-## Architecture Overview
-
-- Single-page React app with role-based routes and dashboards.  
-- State persisted locally using redux-persist and browser localStorage.  
-- Role-based authentication and routing handled on frontend.  
-- Drag-and-drop UI for intuitive task management.  
-- Real-time UI feedback via notifications and updated charts.  
-
----
-
-## Demo & Credentials
-My App
-Try the live demo here: [Enterprise Work Manager Live](https://enterprise-management-system1.netlify.app/)
-
-Use the default admin account to explore all features:  
-
-- **Email:** admin@example.com  
-- **Password:** admin123
-
----
-
 ## Screenshots
 
 ### Login Page  
-![Login Page](URL_TO_LOGIN_IMAGE)
+<img width="1920" height="1128" alt="Login" src="https://github.com/user-attachments/assets/76f968c6-69fb-486c-a95c-fb5040a9fbab" />
+
 
 ### Settings / Home Page  
 ![Settings Home Page](URL_TO_SETTINGS_HOME_IMAGE)
@@ -114,7 +93,31 @@ Use the default admin account to explore all features:
 ![Employee Dashboard](URL_TO_EMPLOYEE_DASHBOARD_IMAGE)
 
 ---
+## Architecture Overview
 
+- Single-page React app with role-based routes and dashboards.  
+- State persisted locally using redux-persist and browser localStorage.  
+- Role-based authentication and routing handled on frontend.  
+- Drag-and-drop UI for intuitive task management.  
+- Real-time UI feedback via notifications and updated charts.  
+
+---
+## Demo Video
+
+[![Watch the demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://youtu.be/YOUTUBE_VIDEO_ID)
+
+---
+
+## Demo & Credentials
+My App
+Try the live demo here: [Enterprise Work Manager Live](https://enterprise-management-system1.netlify.app/)
+
+Use the default admin account to explore all features:  
+
+- **Email:** admin@example.com  
+- **Password:** admin123
+
+---
 ## Future Enhancements
 
 - Backend
@@ -128,6 +131,3 @@ Yashwanth GR - [yashwanthgr003@gmail.com]
 
 ---
 
-## Demo Video
-
-[![Watch the demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://youtu.be/YOUTUBE_VIDEO_ID)
