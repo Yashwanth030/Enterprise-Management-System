@@ -66,13 +66,13 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 | **Login Page**  | **Settings** |
 |-------------|--------------|
 |<img width="1920" height="1128" alt="Login" src="https://github.com/user-attachments/assets/76f968c6-69fb-486c-a95c-fb5040a9fbab" /> | <img width="1920" height="1128" alt="Settings" src="https://github.com/user-attachments/assets/98cc7616-760d-4c8a-ba13-8f4d5a4fd9ad" />|
+ 
+ ---
+| **Admin Dashboard** | **Admin: Create Project** |
+|---------------------|---------------------------|
+|<img width="1920" height="1128" alt="Admin -dashboard" src="https://github.com/user-attachments/assets/94497297-0490-4d3e-bd5c-4dd874de271b" />|<img width="1920" height="1128" alt="Create- Project" src="https://github.com/user-attachments/assets/e500d6ad-8059-4e1f-805d-7699681ae492" />|
 
-
-### Admin Dashboard  
-![Admin Dashboard](URL_TO_ADMIN_DASHBOARD_IMAGE)
-
-### Admin: Create Project  
-![Admin Create Project](URL_TO_ADMIN_CREATE_PROJECT_IMAGE)
+---
 
 ### Reports (Graphs & Pie Charts)  
 ![Reports](URL_TO_REPORTS_IMAGE_1)  
