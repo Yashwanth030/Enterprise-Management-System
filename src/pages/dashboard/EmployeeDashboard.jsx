@@ -19,9 +19,13 @@ const EmployeeDashboard = () => {
   const [editingComments, setEditingComments] = useState({});
 
   const handleStatusChange = (taskId, newStatus) => {
-    dispatch(updateTaskStatus({ id: taskId, status: newStatus }));
-    toast.success(`Task marked as ${newStatus}`);
-  };
+   dispatch(updateTaskStatus({
+  id: taskId,
+  status: newStatus,
+  lastUpdatedBy: employee.email,
+  managerNotified: false,
+}));
+  }
 
   const handleCommentChange = (taskId, value) => {
     setEditingComments((prev) => ({
@@ -36,25 +40,28 @@ const EmployeeDashboard = () => {
       toast.success("Comment updated");
     }
   };
+useEffect(() => {
+  tasks.forEach((task) => {
+    if (
+      task.assignedTo === employee.email &&
+      task.status === "Done" &&
+      task.comments &&
+      !task.notifiedForCompletion
+    ) {
+      dispatch(
+        addNotification({
+          message: `✅ Task '${task.title}' marked as completed. 🗒️ Manager's Comment: "${task.comments}"`,
+          role: "employee",
+          type: "info",
+        })
+      );
 
-  useEffect(() => {
-    const today = new Date().toISOString().slice(0, 10);
-    tasks.forEach((task) => {
-      if (
-        task.assignedTo === employee.email &&
-        task.dueDate === today &&
-        task.status !== "Done"
-      ) {
-        dispatch(
-          addNotification({
-            message: `⏰ Task '${task.title}' is due today!`,
-            role: "employee",
-            type: "warning",
-          })
-        );
-      }
-    });
-  }, [tasks, employee.email, dispatch]);
+      dispatch(updateTaskStatus({ id: task.id, notifiedForCompletion: true }));
+    }
+  });
+}, [tasks, employee.email, dispatch]);
+
+
 
   return (
     <div className="p-6 space-y-6 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
@@ -112,7 +119,6 @@ const EmployeeDashboard = () => {
                   >
                     <option value="To Do">To Do</option>
                     <option value="In Progress">In Progress</option>
-                    <option value="Done">Done</option>
                   </select>
                 </div>
               </li>

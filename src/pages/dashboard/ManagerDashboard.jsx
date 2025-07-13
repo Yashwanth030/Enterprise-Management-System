@@ -19,6 +19,7 @@ const ManagerDashboard = () => {
     description: "",
     priority: "Normal",
   });
+  const [expandedProjects, setExpandedProjects] = useState([]);
 
   useEffect(() => {
     const latestManager = users.find(
@@ -33,20 +34,64 @@ const ManagerDashboard = () => {
   }, [users, manager, dispatch]);
 
   useEffect(() => {
-    const pending = tasks.filter(
-      (task) => task.assignedTo && task.status !== "Done"
+    tasks.forEach((task) => {
+      const isMyProject = manager.projectIds?.includes(task.projectId);
+      const updatedBy = task.lastUpdatedBy;
+      const isUpdatedByEmployee = users.some(
+        (u) => u.email === updatedBy && u.role === "employee"
+      );
+
+      if (isMyProject && isUpdatedByEmployee && !task.managerNotified) {
+        dispatch(
+          addNotification({
+            message: `🔄 Task '${task.title}' was updated by ${updatedBy}`,
+            role: "manager",
+            type: "info",
+          })
+        );
+        dispatch(
+          updateTaskStatus({
+            id: task.id,
+            managerNotified: true,
+          })
+        );
+      }
+    });
+  }, [tasks, manager.projectIds, dispatch, users]);
+useEffect(() => {
+  tasks.forEach((task) => {
+    const isMyProject = manager.projectIds?.includes(task.projectId);
+    const updatedBy = task.lastUpdatedBy;
+    const isUpdatedByEmployee = users.some(
+      (u) => u.email === updatedBy && u.role === "employee"
     );
 
-    if (pending.length > 0) {
-      dispatch(
-        addNotification({
-          message: `🔔 ${pending.length} employee task(s) are pending.`,
-          role: "manager",
-          type: "info",
-        })
-      );
-    }
-  }, [tasks, dispatch]);
+if (
+  isMyProject &&
+  isUpdatedByEmployee &&
+  !task.managerNotified &&
+  task.lastUpdatedBy !== null &&
+  (hasNewComment || statusChanged)
+) {
+  dispatch(
+    addNotification({
+      message: `🔄 Task '${task.title}' was updated by ${updatedBy}`,
+      role: "manager",
+      type: "info",
+    })
+  );
+  dispatch(
+    updateTaskStatus({
+      id: task.id,
+      managerNotified: true,
+    })
+  );
+}
+
+  });
+}, [tasks, manager.projectIds, dispatch, users]);
+
+
 
   const assignedProjects = projects.filter((p) => p.manager === manager.email);
   const columns = ["To Do", "In Progress", "Done"];
@@ -91,6 +136,12 @@ const ManagerDashboard = () => {
     }
   };
 
+  const toggleProject = (id) => {
+    setExpandedProjects((prev) =>
+      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
+    );
+  };
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-9 text-gray-900 dark:text-white">Manager Dashboard</h1>
@@ -109,151 +160,153 @@ const ManagerDashboard = () => {
             ? Math.round((completed / projectTasks.length) * 100)
             : 0;
 
+          const isExpanded = expandedProjects.includes(project.id);
+
           return (
             <div
               key={project.id}
               className="mb-10 border rounded bg-white dark:bg-gray-800 p-4 shadow text-gray-900 dark:text-white"
             >
-              <h2 className="text-xl font-semibold mb-2">📌 {project.name}</h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Project ID: {project.id}</p>
-
-              <div className="mb-4">
-                <p className="text-sm font-medium">Progress: {progress}%</p>
-                <div className="bg-gray-300 dark:bg-gray-700 h-2 rounded">
-                  <div
-                    className="bg-green-500 h-2 rounded"
-                    style={{ width: `${progress}%` }}
-                  ></div>
-                </div>
+              <div
+                className="cursor-pointer mb-4"
+                onClick={() => toggleProject(project.id)}
+              >
+                <h2 className="text-xl font-semibold">📌 {project.name}</h2>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Project ID: {project.id}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Progress: {progress}%</p>
+                {progress === 100 && !isExpanded && (
+                  <p className="text-sm text-green-500 italic">✅ Project completed - Tap to view</p>
+                )}
               </div>
 
-              {/* Task Form */}
-              <div className="mb-4 flex flex-wrap gap-2">
-                <input
-                  value={newTask.title}
-                  onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  placeholder="Task Title"
-                  className="border dark:border-gray-600 dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
-                />
-                <input
-                  value={newTask.description}
-                  onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                  placeholder="Description"
-                  className="border dark:border-gray-600 dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
-                />
-                <input
-                  type="date"
-                  value={newTask.dueDate || ""}
-                  onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
-                  className="border dark:border-gray-600 dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
-                />
-                <select
-                  value={newTask.priority}
-                  onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                  className="border dark:border-gray-600 dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
-                >
-                  <option>Low</option>
-                  <option>Normal</option>
-                  <option>High</option>
-                </select>
-                <button
-                  onClick={() => {
-                    setSelectedProjectId(project.id);
-                    handleCreateTask();
-                  }}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
-                >
-                  ➕ Add Task
-                </button>
-              </div>
-
-              {/* Task Board */}
-              <DragDropContext onDragEnd={handleDragEnd}>
-                <div className="overflow-x-auto">
-                  <div className="flex gap-4 min-w-[800px]">
-                    {columns.map((col) => (
-                      <Droppable droppableId={col} key={col}>
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                            className="bg-gray-100 dark:bg-gray-700 p-4 rounded w-[250px] flex-shrink-0 max-h-[500px] overflow-y-auto"
-                          >
-                            <h3 className="font-bold mb-2 text-gray-800 dark:text-white">{col}</h3>
-                            {projectTasks
-                              .filter((t) => t.status === col)
-                              .map((task, index) => (
-                                <Draggable draggableId={`task-${task.id}`} index={index} key={task.id}>
-                                  {(provided, snapshot) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      className={`bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-3 mb-2 rounded shadow transition-all duration-200 ${
-                                        snapshot.isDragging
-                                          ? "border border-blue-500 shadow-lg scale-105"
-                                          : ""
-                                      }`}
-                                    >
-                                      <p className="font-semibold">{task.title}</p>
-                                      <p className="text-xs text-green-600">🎯 {task.priority}</p>
-                                      <p className="text-xs text-blue-600">👤 {task.assignedTo || "Unassigned"}</p>
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                            {provided.placeholder}
-                          </div>
-                        )}
-                      </Droppable>
-                    ))}
+              {(progress < 100 || isExpanded) && (
+                <>
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    <input
+                      value={newTask.title}
+                      onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
+                      placeholder="Task Title"
+                      className="border dark:border-gray-600 dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
+                    />
+                    <input
+                      value={newTask.description}
+                      onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+                      placeholder="Description"
+                      className="border dark:border-gray-600 dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
+                    />
+                    <input
+                      type="date"
+                      value={newTask.dueDate || ""}
+                      onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
+                      className="border dark:border-gray-600 dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
+                    />
+                    <select
+                      value={newTask.priority}
+                      onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
+                      className="border dark:border-gray-600 dark:bg-gray-900 dark:text-white px-2 py-1 rounded"
+                    >
+                      <option>Low</option>
+                      <option>Normal</option>
+                      <option>High</option>
+                    </select>
+                    <button
+                      onClick={() => {
+                        setSelectedProjectId(project.id);
+                        handleCreateTask();
+                      }}
+                      className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                    >
+                      ➕ Add Task
+                    </button>
                   </div>
-                </div>
 
-                {/* Employee Assignment Zones */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                  {employees.map((emp) => (
-                    <Droppable droppableId={`emp-${emp.email}`} key={emp.email}>
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.droppableProps}
-                          className="p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded shadow border border-dashed border-blue-300 min-h-[150px] max-h-[300px] overflow-y-auto"
-                        >
-                          <h4 className="font-semibold mb-2">
-                            👷 {emp.name} ({emp.email})
-                          </h4>
-                          {projectTasks
-                            .filter((t) => t.assignedTo === emp.email)
-                            .map((task, index) => (
-                              <Draggable
-                                draggableId={`task-${task.id}`}
-                                index={index}
-                                key={task.id}
+                  <DragDropContext onDragEnd={handleDragEnd}>
+                    <div className="overflow-x-auto">
+                      <div className="flex gap-4 min-w-[800px]">
+                        {columns.map((col) => (
+                          <Droppable droppableId={col} key={col}>
+                            {(provided) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                className="bg-gray-100 dark:bg-gray-700 p-4 rounded w-[250px] flex-shrink-0 max-h-[500px] overflow-y-auto"
                               >
-                                {(provided, snapshot) => (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className={`bg-gray-100 dark:bg-gray-700 p-2 my-2 rounded shadow ${
-                                      snapshot.isDragging
-                                        ? "border border-blue-400 scale-105"
-                                        : ""
-                                    }`}
+                                <h3 className="font-bold mb-2 text-gray-800 dark:text-white">{col}</h3>
+                                {projectTasks
+                                  .filter((t) => t.status === col)
+                                  .map((task, index) => (
+                                    <Draggable draggableId={`task-${task.id}`} index={index} key={task.id}>
+                                      {(provided, snapshot) => (
+                                        <div
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                          className={`bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-3 mb-2 rounded shadow transition-all duration-200 ${
+                                            snapshot.isDragging
+                                              ? "border border-blue-500 shadow-lg scale-105"
+                                              : ""
+                                          }`}
+                                        >
+                                          <p className="font-semibold">{task.title}</p>
+                                          <p className="text-xs text-green-600">🎯 {task.priority}</p>
+                                          <p className="text-xs text-blue-600">👤 {task.assignedTo || "Unassigned"}</p>
+                                        </div>
+                                      )}
+                                    </Draggable>
+                                  ))}
+                                {provided.placeholder}
+                              </div>
+                            )}
+                          </Droppable>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                      {employees.map((emp) => (
+                        <Droppable droppableId={`emp-${emp.email}`} key={emp.email}>
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.droppableProps}
+                              className="p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded shadow border border-dashed border-blue-300 min-h-[150px] max-h-[300px] overflow-y-auto"
+                            >
+                              <h4 className="font-semibold mb-2">
+                                👷 {emp.name} ({emp.email})
+                              </h4>
+                              {projectTasks
+                                .filter((t) => t.assignedTo === emp.email)
+                                .map((task, index) => (
+                                  <Draggable
+                                    draggableId={`task-${task.id}`}
+                                    index={index}
+                                    key={task.id}
                                   >
-                                    {task.title}
-                                  </div>
-                                )}
-                              </Draggable>
-                            ))}
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Droppable>
-                  ))}
-                </div>
-              </DragDropContext>
+                                    {(provided, snapshot) => (
+                                      <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        className={`bg-gray-100 dark:bg-gray-700 p-2 my-2 rounded shadow ${
+                                          snapshot.isDragging
+                                            ? "border border-blue-400 scale-105"
+                                            : ""
+                                        }`}
+                                      >
+                                        {task.title}
+                                      </div>
+                                    )}
+                                  </Draggable>
+                                ))}
+                              {provided.placeholder}
+                            </div>
+                          )}
+                        </Droppable>
+                      ))}
+                    </div>
+                  </DragDropContext>
+                </>
+              )}
             </div>
           );
         })

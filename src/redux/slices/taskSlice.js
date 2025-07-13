@@ -1,3 +1,5 @@
+
+// redux/slices/taskSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -12,7 +14,6 @@ const taskSlice = createSlice({
       state.tasks.push(action.payload);
       localStorage.setItem('tasks', JSON.stringify(state.tasks));
     },
-
     updateTaskStatus: (state, action) => {
       const { id, status, assignedTo, dueDate, ...rest } = action.payload;
       const task = state.tasks.find((t) => t.id === id);
@@ -20,19 +21,15 @@ const taskSlice = createSlice({
         if (status !== undefined) task.status = status;
         if (assignedTo !== undefined) task.assignedTo = assignedTo;
         if (dueDate !== undefined) task.dueDate = dueDate;
-
-        // Merge other fields like comments, priority, etc.
         Object.assign(task, rest);
         localStorage.setItem('tasks', JSON.stringify(state.tasks));
       }
     },
-
     deleteTask: (state, action) => {
       const taskId = action.payload;
       state.tasks = state.tasks.filter((t) => t.id !== taskId);
       localStorage.setItem('tasks', JSON.stringify(state.tasks));
     },
-
     deleteTasksByProjectId: (state, action) => {
       const projectId = action.payload;
       state.tasks = state.tasks.filter((t) => t.projectId !== projectId);

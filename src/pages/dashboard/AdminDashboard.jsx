@@ -24,18 +24,55 @@ const getProjectCompletionStatus = (projectId) => {
   return "In Progress";
 };
 useEffect(() => {
-  const completed = tasks.filter((task) => task.status === "Done");
+  const newlyCompleted = tasks.filter(
+    (task) =>
+      task.status === "Done" &&
+      !task.notifiedForCompletionByAdmin
+  );
 
-  if (completed.length > 0) {
+  const newlyAssigned = tasks.filter(
+    (task) =>
+      task.assignedTo &&
+      !task.notifiedForAssignmentByAdmin
+  );
+
+  newlyCompleted.forEach((task) => {
     dispatch(
       addNotification({
-        message: `✅ ${completed.length} task(s) completed across projects.`,
+        message: `✅ Task '${task.title}' has been completed by ${task.assignedTo}.`,
         role: "admin",
         type: "success",
       })
     );
-  }
+
+    dispatch({
+      type: "tasks/updateTaskNotifiedStatus",
+      payload: {
+        id: task.id,
+        notifiedForCompletionByAdmin: true,
+      },
+    });
+  });
+
+  newlyAssigned.forEach((task) => {
+    dispatch(
+      addNotification({
+        message: `📋 Task '${task.title}' assigned to ${task.assignedTo}.`,
+        role: "admin",
+        type: "info",
+      })
+    );
+
+    dispatch({
+      type: "tasks/updateTaskNotifiedStatus",
+      payload: {
+        id: task.id,
+        notifiedForAssignmentByAdmin: true,
+      },
+    });
+  });
 }, [tasks, dispatch]);
+
 
   return (
     <div className="flex min-h-screen">

@@ -3,15 +3,25 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { BellIcon } from "@heroicons/react/24/solid";
 import { Transition } from '@headlessui/react';
+import { useDispatch } from 'react-redux';
+import { markAllAsReadForRole } from '../../redux/slices/notificationSlice';
+
 
 const NotificationPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
- const { user } = useSelector((state) => state.auth);
-const notifications = useSelector(state =>
-  state.notifications.notifications.filter(n => !n.role || n.role === user.role)
-);
+  const { user } = useSelector((state) => state.auth);
+const dispatch = useDispatch();
+  const notifications = useSelector((state) =>
+    state.notifications.notifications.filter(
+      (n) => !n.role || n.role === user.role
+    )
+  );
 
-  const roleBasedNotifications = notifications.filter(n => n.role === user.role);
+  const roleBasedNotifications = notifications.filter(
+    (n) => n.role === user.role
+  );
+
+  const unreadCount = roleBasedNotifications.filter((n) => !n.read).length;
 
   const typeColor = {
     success: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
@@ -23,15 +33,20 @@ const notifications = useSelector(state =>
   return (
     <div className="relative inline-block text-left">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+  setIsOpen(!isOpen);
+  if (!isOpen && unreadCount > 0) {
+    dispatch(markAllAsReadForRole(user.role));
+  }
+}}
+
         className="relative p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
       >
         <BellIcon className="h-6 w-6 text-gray-600 dark:text-white" />
-        {roleBasedNotifications.length > 0 && (
-          <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
-            {roleBasedNotifications.length}
-          </span>
-        )}
+       {unreadCount > 0 && (
+  <span className="absolute top-0 right-0 w-2 h-2 bg-red-600 rounded-full"></span>
+)}
+
       </button>
 
       <Transition

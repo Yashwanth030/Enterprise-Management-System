@@ -1,34 +1,27 @@
-
-
-// Polyfill for TextEncoder
-import { TextEncoder, TextDecoder } from "util";
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
-
+// src/__tests__/Login.test.jsx
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
+import { MemoryRouter } from "react-router-dom";
 import authReducer from "../redux/slices/authSlice";
+import userReducer from "../redux/slices/userSlice";
 import Login from "../pages/auth/Login";
-import userEvent from "@testing-library/user-event";
 import toast from "react-hot-toast";
-import { MemoryRouter } from "react-router-dom"; // ✅ This is the missing import
 
-// ✅ Mock toast to avoid real popups
+// ✅ Mock toast
 jest.mock("react-hot-toast", () => ({
   success: jest.fn(),
   error: jest.fn(),
 }));
 
-function renderWithProviders(ui, {
+function renderWithProviders(ui, { preloadedState, store = configureStore({
+  reducer: {
+    auth: authReducer,
+    users: userReducer,
+  },
   preloadedState,
-  store = configureStore({
-    reducer: { auth: authReducer },
-    preloadedState,
-  }),
-  ...renderOptions
-} = {}) {
+}), ...renderOptions } = {}) {
   function Wrapper({ children }) {
     return (
       <Provider store={store}>
@@ -36,9 +29,12 @@ function renderWithProviders(ui, {
       </Provider>
     );
   }
-  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
-}
 
+  return {
+    store,
+    ...render(ui, { wrapper: Wrapper, ...renderOptions }),
+  };
+}
 
 describe("Login Component", () => {
   beforeEach(() => {
@@ -60,13 +56,19 @@ describe("Login Component", () => {
   });
 
   test("shows error toast on invalid credentials", async () => {
+    // Add a valid user so that wrong credentials are actually wrong
     localStorage.setItem("users", JSON.stringify([
-      { email: "user@example.com", password: "password123", role: "user" }
+      { email: "valid@example.com", password: "valid123", role: "employee" },
     ]));
 
     renderWithProviders(<Login />);
-    userEvent.type(screen.getByPlaceholderText(/email/i), "wrong@example.com");
-    userEvent.type(screen.getByPlaceholderText(/password/i), "wrongpass");
+    fireEvent.change(screen.getByPlaceholderText(/email/i), {
+      target: { value: "wrong@example.com" },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/password/i), {
+      target: { value: "wrongpass" },
+    });
+
     fireEvent.click(screen.getByRole("button", { name: /login/i }));
 
     await waitFor(() => {
@@ -74,28 +76,33 @@ describe("Login Component", () => {
     });
   });
 
-  test("dispatches login and sets localStorage on successful login", async () => {
-    const user = {
-      email: "admin@example.com",
-      password: "admin123",
-      role: "manager",
-      id: "1",
-      name: "manager"
+  test("logs in successfully with employee credentials", async () => {
+    const employee = {
+      email: "emp@example.com",
+      password: "emp123",
+      role: "employee",
+      id: "emp1",
+      name: "Employee One",
     };
-    localStorage.setItem("users", JSON.stringify([user]));
+    localStorage.setItem("users", JSON.stringify([employee]));
 
     const { store } = renderWithProviders(<Login />);
-    userEvent.type(screen.getByPlaceholderText(/email/i), user.email);
-    userEvent.type(screen.getByPlaceholderText(/password/i), user.password);
+    fireEvent.change(screen.getByPlaceholderText(/email/i), {
+      target: { value: employee.email },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/password/i), {
+      target: { value: employee.password },
+    });
+
     fireEvent.click(screen.getByRole("button", { name: /login/i }));
 
     await waitFor(() => {
       const authState = store.getState().auth;
-      expect(authState.user.email).toBe(user.email);
+      expect(authState.user.email).toBe(employee.email);
       expect(toast.success).toHaveBeenCalledWith("Logged in successfully!");
     });
 
     const storedUser = JSON.parse(localStorage.getItem("currentUser"));
-    expect(storedUser.email).toBe(user.email);
+    expect(storedUser.email).toBe(employee.email);
   });
 });

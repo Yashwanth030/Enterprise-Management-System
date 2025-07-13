@@ -1,4 +1,3 @@
-// src/redux/store.js
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -10,7 +9,6 @@ import taskReducer from './slices/taskSlice';
 import projectReducer from './slices/projectSlice';
 import notificationReducer from './slices/notificationSlice';
 
-// Combine all slices into root reducer
 const rootReducer = combineReducers({
   users: userReducer,
   auth: authReducer,
@@ -19,16 +17,13 @@ const rootReducer = combineReducers({
   notifications: notificationReducer,
 });
 
-// Set up redux-persist config
 const persistConfig = {
   key: 'root',
   storage,
 };
 
-// Create persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// 🔄 Middleware to support async dispatching in reducers
 const asyncDispatchMiddleware = storeAPI => next => action => {
   let syncActivityFinished = false;
   let actionQueue = [];
@@ -48,7 +43,6 @@ const asyncDispatchMiddleware = storeAPI => next => action => {
   return res;
 };
 
-// ✅ Configure and export store and persistor
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
