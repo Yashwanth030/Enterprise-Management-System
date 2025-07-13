@@ -107,7 +107,7 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 ---
 ## Tutorial Video
 
-[![Watch the demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://youtu.be/YOUTUBE_VIDEO_ID)
+[![Watch the demo](https://drive.google.com/file/d/1KbyQH4UJb2RXtNncakmTV-uR2EDmSgf2/view?usp=drive_link)
 
 ---
 
