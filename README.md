@@ -43,16 +43,19 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 
 ---
 
-## Technology Stack
+##  Technology Stack
 
-- **Frontend:** React (Vite), React Router DOM  
-- **State Management:** Redux Toolkit, redux-persist, redux-thunk  
-- **Styling:** Tailwind CSS, Headless UI  
-- **Drag & Drop:** @hello-pangea/dnd  
-- **Charts & Graphs:** Recharts  
-- **Form Handling:** react-hook-form  
-- **Notifications:** react-hot-toast  
-- **Testing:** Jest, React Testing Library  
+| Category           | Libraries / Tools                         |
+|--------------------|-------------------------------------------|
+| **Frontend**        | React (Vite), React Router DOM            |
+| **State Management**| Redux Toolkit, redux-persist, redux-thunk |
+| **Styling**         | Tailwind CSS, Headless UI                 |
+| **Drag & Drop**     | @hello-pangea/dnd                         |
+| **Charts & Graphs** | Recharts                                  |
+| **Form Handling**   | react-hook-form                           |
+| **Notifications**   | react-hot-toast                           |
+| **Testing**         | Jest, React Testing Library               |
+
 
 ---
 
@@ -67,7 +70,7 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 ---
 
 ## Demo & Credentials
-
+My App
 Try the live demo here: [Enterprise Work Manager Live](https://enterprise-management-system1.netlify.app/)
 
 Use the default admin account to explore all features:  
@@ -114,17 +117,7 @@ Use the default admin account to explore all features:
 
 ## Future Enhancements
 
-- Email-based login and password reset system  
-- File attachments and uploads for tasks  
-- Deadline reminders with calendar integration  
-- Backend API with JWT authentication for secure data persistence  
-- Role-based access control and permissions management  
-
----
-
-## License
-
-This project is licensed under the MIT License.
+- Backend
 
 ---
 
