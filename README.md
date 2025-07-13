@@ -76,7 +76,7 @@ It offers intuitive dashboards, drag-and-drop task management, real-time notific
 
 |Reports (Graphs & Pie Charts)|
 |-----------------------------|
-|<img width="1920" height="1128" alt="Piechart Report" src="https://github.com/user-attachments/assets/111b0295-4b64-41ff-8d96-464ae1147863" />|<img width="1920" height="1128" alt="Graphs" src="https://github.com/user-attachments/assets/23b1b1cd-8c4b-4132-be5c-418e835c662e" />|
+|<img width="1920" height="1128" alt="Piechart Report" src="https://github.com/user-attachments/assets/111b0295-4b64-41ff-8d96-464ae1147863" /> <img width="1920" height="1128" alt="Graphs" src="https://github.com/user-attachments/assets/23b1b1cd-8c4b-4132-be5c-418e835c662e" />|
 
 
 ### Users Overview  
